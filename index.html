@@ -6,32 +6,117 @@
     <title>จัดเรียงพารากราฟตามตัวอักษร</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         #input-text {
             width: 100%;
             height: 100px;
-            margin-bottom: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fef8e6;
         }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #sort-button {
+            background-color: #6a0572;
+        }
+
+        #copy-button {
+            background-color: #ff6f61;
+        }
+
         #output {
             margin-top: 20px;
+            text-align: left;
         }
+
+        h3 {
+            color: #555;
+            font-size: 20px;
+        }
+
+        #sorted-paragraphs {
+            background-color: #f0f8ff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
         p {
-            padding: 5px;
+            padding: 8px;
             margin: 5px 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            border-radius: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <h2>จัดเรียงพารากราฟตามตัวอักษร</h2>
-    <textarea id="input-text" placeholder="ใส่พารากราฟแยกบรรทัดที่นี่..."></textarea><br>
-    <button onclick="sortParagraphs()">เรียง</button>
+    <div class="container">
+        <h2>จัดเรียงพารากราฟตามตัวอักษร</h2>
+        <textarea id="input-text" placeholder="ใส่พารากราฟแยกบรรทัดที่นี่..."></textarea>
+        
+        <div class="button-container">
+            <button id="sort-button" onclick="sortParagraphs()">เรียง</button>
+            <button id="copy-button" onclick="copyAllText()">All Copy</button>
+        </div>
 
-    <div id="output">
-        <h3>ผลลัพธ์:</h3>
-        <div id="sorted-paragraphs"></div>
+        <div id="output">
+            <h3>ผลลัพธ์:</h3>
+            <div id="sorted-paragraphs"></div>
+        </div>
     </div>
 
     <script>
@@ -48,6 +133,19 @@
                 pElement.textContent = paragraph;
                 outputDiv.appendChild(pElement);
             });
+        }
+
+        function copyAllText() {
+            const outputDiv = document.getElementById("sorted-paragraphs");
+            if (outputDiv.innerText) {
+                navigator.clipboard.writeText(outputDiv.innerText).then(() => {
+                    alert("คัดลอกข้อความทั้งหมดเรียบร้อย!");
+                }).catch(err => {
+                    console.error("การคัดลอกล้มเหลว: ", err);
+                });
+            } else {
+                alert("ไม่มีข้อความให้คัดลอก");
+            }
         }
     </script>
 

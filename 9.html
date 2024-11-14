@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดเรียงพารากราฟตามตัวอักษร</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #input-text {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        p {
+            padding: 5px;
+            margin: 5px 0;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>จัดเรียงพารากราฟตามตัวอักษร</h2>
+    <textarea id="input-text" placeholder="ใส่พารากราฟแยกบรรทัดที่นี่..."></textarea><br>
+    <button onclick="sortParagraphs()">เรียง</button>
+
+    <div id="output">
+        <h3>ผลลัพธ์:</h3>
+        <div id="sorted-paragraphs"></div>
+    </div>
+
+    <script>
+        function sortParagraphs() {
+            const inputText = document.getElementById("input-text").value;
+            const paragraphs = inputText.split("\n").filter(line => line.trim() !== "");
+            
+            paragraphs.sort((a, b) => a.trim().localeCompare(b.trim()));
+            
+            const outputDiv = document.getElementById("sorted-paragraphs");
+            outputDiv.innerHTML = ""; 
+            paragraphs.forEach(paragraph => {
+                const pElement = document.createElement("p");
+                pElement.textContent = paragraph;
+                outputDiv.appendChild(pElement);
+            });
+        }
+    </script>
+
+</body>
+</html>
